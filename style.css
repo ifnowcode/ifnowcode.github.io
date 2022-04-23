@@ -1,0 +1,60 @@
+/* Comment */
+html { font-family: sans-serif; background: black; padding: 1rem; } /*#eee*/
+body { max-width: 900px; margin: 0 auto; background: black; color: white; font-family: Courier New, Helvetica, sans-serif;}
+h1 { font-family: Helvetica; color: #377ba8; margin: 1rem 0; font-size:60px; text-align: center;}
+h3 { text-align:center; color: #C30;} /* Lime #0F0 */
+a { color: #377ba8; }
+hr { border: none ; border-top: 1px solid lightgray; } /*#094CFA*/
+/* Begin Horizontal List Style */
+.nav { padding-left: 0px; background-color: #3D99CE; text-align: center; }
+.nav > li { display: inline-block; padding: 10px 20px;}
+.nav > li:hover { background-color: #2779BF;}
+.nav > li > a {color: white; text-decoration: none; }
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+}
+
+li {
+    float: left;
+}
+
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 16px;
+    text-decoration: none;
+}
+
+li a:hover {
+    background-color: #111111;
+}
+/* End Horizontal List Style */
+
+/* Begin Horizontal List Style */
+/* 
+.titlebar { padding-left: 0px; background-color: #3D99CE; text-align: center; }
+.titlebar > li { display: inline-block; padding: 10px 20px;}
+.titlebar > li:hover { background-color: #2779BF;}
+.titlebar > li > a {color: white; text-decoration: none; }
+*/
+/* End Horizontal List Style */
+
+/* Begin Nav Style ? */
+nav { background: #222; display: flex; align-items: center; padding: 0 0.5rem; }
+nav h1 { flex: auto; margin: 0; }
+nav h1 a { text-decoration: none; padding: 0.25rem 0.5rem; }
+nav ul  { display: flex; list-style: none; margin: 0; padding: 0; }
+nav ul li a, nav ul li span, header .action { display: block; padding: 0.5rem; }
+/* End Nav Style */
+
+/* Begin Content CSS */
+section.content { padding: 0 1rem 1rem; }
+section.content > header { border-bottom: 1px solid lightgray; display: flex; align-items: flex-end; }
+section.content > header h1 { flex: auto; margin: 1rem 0 0.25rem 0; }
+section.content > header h2 { flex: auto; margin: 1rem 0 0.25rem 0; } /* this left justtified 'New'*/
+/* End Content CSS */
