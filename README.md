@@ -1,2 +1,2 @@
 # ifnowcode.github.io
-IfNowCode LLC
+IfNowCode LLC https://ifnowcode.github.io
