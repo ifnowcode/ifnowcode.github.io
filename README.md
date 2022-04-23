@@ -1,5 +1,5 @@
 # ifnowcode.github.io
-IfNowCode LLC
+If Now Code LLC
 https://ifnowcode.github.io
 
 If Now: Code
