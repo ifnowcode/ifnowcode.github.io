@@ -1,7 +1,7 @@
 async function BuildHomePage() {
     const repos = await GitHubService.getRepos("ifnowcode");
     repos.sort((a, b) => b.stargazers_count - a.stargazers_count);
-    return [new HomePage("ifnowcode", "IfNowCode", repos)];
+    return [new RepoPage("ifnowcode", "IfNowCode", repos)];
   }
   
 function PageTemplate(contents = []) {
@@ -29,7 +29,7 @@ router.resolve(function({ contents, template }) {
 
   //const page = applyLayout(components);
   const page = components;
-  console.log("Page:", page);
+  //console.log("Page:", page);
   page.forEach(widget => {
     widget.render(document.body);
 

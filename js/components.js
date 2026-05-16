@@ -21,11 +21,21 @@ class RepoCard extends Element {
       }
     });
 
-    this.addChild(
-      new Element("h2", {
+    this.addChild(new Element("a", {
+        props: {
+          href: repo.html_url,
+          //textContent: "GitHub Repo",
+          target: "_blank"
+        },
+        css: {
+          color: "#58a6ff",
+          textDecoration: "none",
+          fontWeight: "bold"
+        }
+      }, new Element("h2", {
         props: { textContent: repo.name },
         css: { margin: "0 0 .5rem 0", fontSize: "1.4rem" }
-      })
+      }))
     );
 
     if (repo.description) {
@@ -36,21 +46,6 @@ class RepoCard extends Element {
         })
       );
     }
-
-    this.addChild(
-      new Element("a", {
-        props: {
-          href: repo.html_url,
-          textContent: "GitHub Repo",
-          target: "_blank"
-        },
-        css: {
-          color: "#58a6ff",
-          textDecoration: "none",
-          fontWeight: "bold"
-        }
-      })
-    );
     
     if (tracedebug) console.log(repo.owner.login, this, repo);
     let label = "";
@@ -62,7 +57,6 @@ class RepoCard extends Element {
       }
     } 
     
-    this.addChild(new Element("br"));
     this.addChild(
       new Element("a", {
         props: {
@@ -155,7 +149,7 @@ class HomePage_dep extends Element {
   }
 }
 
-class HomePage extends Element {
+class RepoPage extends Element {
   constructor(username, titleName, repos) {
     super("div", {
       props: { className: "home-page" },
