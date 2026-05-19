@@ -167,30 +167,19 @@ class RepoPage extends Element {
 
     this.header.addChild(
       new Element("h1", {
-        props: { textContent: `${titleName}'s GitHub Repositories` },
-        css: { fontSize: "2.5rem", marginBottom: ".5rem" }
-      })
-    );
-
-    this.header.addChild(
-      new Element("a", {
         props: {
-          href: `https://github.com/${username}`,
-          textContent: `github.com/${username}`,
-          target: "_blank"
+          innerHTML: `
+            ${titleName}
+            <a href="https://github.com/${username}" target="_blank">GitHub</a>
+            <span> </span>
+            <a href="https://github.com/${username}?tab=repositories" target="_blank">Repositories</a>
+          `
         },
-        css: { color: "#58a6ff", textDecoration: "none" }
-      })
-    );
-    this.header.addChild(new Element("br"));
-    this.header.addChild(
-      new Element("a", {
-        props: {
-          href: `https://github.com/${username}?tab=repositories`,
-          textContent: `repositories`,
-          target: "_blank"
-        },
-        css: { color: "#58a6ff", textDecoration: "none" }
+        css: {
+          fontSize: "2.5rem",
+          marginBottom: ".5rem",
+          textAlign: "center"
+        }
       })
     );
 
