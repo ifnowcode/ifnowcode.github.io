@@ -2,7 +2,8 @@ class EffectOverlay extends Element {
   constructor(metadata = {}) {
     super("div", {
       css: {
-        position: "absolute",
+        //position: "absolute",
+        position: "fixed",
         top: "0",
         left: "0",
         width: "100vw",
@@ -4178,3 +4179,227 @@ class RainbowUnicornMagic extends EffectOverlay {
     }
   }
 }
+
+class FloatingEmoji extends EffectOverlay {
+  constructor({
+    emojis = ["✨", "💫", "🌟", "🔥", "🎈", "🪄", "🍀", "💖"],
+    count = 40,
+    sizeMin = 20,
+    sizeMax = 48,
+    ...metadata
+  } = {}) {
+    super(metadata);
+
+    this.emojis = emojis;
+    this.count = count;
+    this.sizeMin = sizeMin;
+    this.sizeMax = sizeMax;
+
+    this.items = [];
+  }
+
+  createEmoji() {
+    const el = document.createElement("div");
+
+    const emoji = this.emojis[Math.floor(Math.random() * this.emojis.length)];
+    const size = this.sizeMin + Math.random() * (this.sizeMax - this.sizeMin);
+
+    el.textContent = emoji;
+
+    Object.assign(el.style, {
+      position: "absolute",
+      fontSize: size + "px",
+      pointerEvents: "none",
+      transform: "translate(0px, 0px)",
+      willChange: "transform",
+      userSelect: "none"
+    });
+
+    this.dom.appendChild(el);
+    return el;
+  }
+
+  spawnEmoji() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    const el = this.createEmoji();
+
+    this.items.push({
+      el,
+      x: Math.random() * w,
+      y: h + 20,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -0.5 - Math.random() * 1.2,
+      wobble: Math.random() * Math.PI * 2,
+      wobbleSpeed: 0.02 + Math.random() * 0.03
+    });
+  }
+
+  update() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    // Maintain count
+    while (this.items.length < this.count) this.spawnEmoji();
+
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      const it = this.items[i];
+
+      it.wobble += it.wobbleSpeed;
+      it.x += it.vx + Math.sin(it.wobble) * 0.4;
+      it.y += it.vy;
+
+      if (it.y < -80) {
+        it.el.remove();
+        this.items.splice(i, 1);
+        continue;
+      }
+
+      it.el.style.transform = `translate(${it.x}px, ${it.y}px)`;
+    }
+  }
+
+  onUnmount() {
+    super.onUnmount();
+    for (const it of this.items) it.el.remove();
+    this.items = [];
+  }
+}
+
+/* Examples:
+const effect = new FloatingEmoji({
+  emojis: ["✨","💫","🌟","🔥","🎈","🪄","🍀","💖"],
+  count: 100,
+  sizeMin: 24,
+  sizeMax: 48
+});
+effect.render(document.getElementById("root"));
+effect.dom.style.zIndex = -1;
+effect.start();
+//-or-
+layout.addTo("main", new FloatingEmoji({
+  emojis: ["✨","💫","🌟","🔥","🎈","🪄","🍀","💖"],
+  count: 50,
+  sizeMin: 24,
+  sizeMax: 48
+}));
+*/
+
+class FloatingNeonWord extends EffectOverlay {
+  constructor({
+    words = ["NEON", "GLOW", "LIGHT", "VIBE"],
+    count = 20,
+    color = "#39ff14",
+    intensity = 1.0,
+    sizeMin = 24,
+    sizeMax = 64,
+    ...metadata
+  } = {}) {
+    super(metadata);
+
+    this.words = words;
+    this.count = count;
+    this.color = color;
+    this.intensity = intensity;
+    this.sizeMin = sizeMin;
+    this.sizeMax = sizeMax;
+
+    this.items = [];
+  }
+
+  createWord() {
+    const el = document.createElement("div");
+
+    const word = this.words[Math.floor(Math.random() * this.words.length)];
+    const size = this.sizeMin + Math.random() * (this.sizeMax - this.sizeMin);
+
+    el.textContent = word;
+
+    Object.assign(el.style, {
+      position: "absolute",
+      fontSize: size + "px",
+      fontWeight: "800",
+      color: this.color,
+      pointerEvents: "none",
+      userSelect: "none",
+      whiteSpace: "nowrap",
+      transform: "translate(0px, 0px)",
+      willChange: "transform, opacity",
+
+      // ⭐ Neon glow (CSS-only, fast)
+      textShadow: `
+        0 0 ${6 * this.intensity}px ${this.color},
+        0 0 ${12 * this.intensity}px ${this.color},
+        0 0 ${24 * this.intensity}px ${this.color},
+        0 0 ${48 * this.intensity}px ${this.color}
+      `,
+
+      opacity: 1,
+      transition: "opacity 0.4s linear"
+    });
+
+    this.dom.appendChild(el);
+    return el;
+  }
+
+  spawnWord() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    const el = this.createWord();
+
+    this.items.push({
+      el,
+      x: Math.random() * w,
+      y: h + 40,
+      vx: (Math.random() - 0.5) * 0.4,
+      vy: -0.6 - Math.random() * 1.2,
+      wobble: Math.random() * Math.PI * 2,
+      wobbleSpeed: 0.015 + Math.random() * 0.03
+    });
+  }
+
+  update() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+
+    // Maintain count
+    while (this.items.length < this.count) this.spawnWord();
+
+    for (let i = this.items.length - 1; i >= 0; i--) {
+      const it = this.items[i];
+
+      it.wobble += it.wobbleSpeed;
+      it.x += it.vx + Math.sin(it.wobble) * 0.6;
+      it.y += it.vy;
+
+      // Remove when off-screen
+      if (it.y < -100) {
+        it.el.remove();
+        this.items.splice(i, 1);
+        continue;
+      }
+
+      it.el.style.transform = `translate(${it.x}px, ${it.y}px)`;
+    }
+  }
+
+  onUnmount() {
+    super.onUnmount();
+    for (const it of this.items) it.el.remove();
+    this.items = [];
+  }
+}
+
+/* Example:
+layout.addTo("main", new FloatingNeonWord({
+  words: ["NEON", "GLOW", "VIBES", "LIGHT"],
+  color: "#ff00ff",
+  intensity: 1.4,
+  count: 25,
+  sizeMin: 32,
+  sizeMax: 72
+}));
+
+*/

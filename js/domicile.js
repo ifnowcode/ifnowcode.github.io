@@ -1,8 +1,8 @@
 const startTime = performance.now();
-const base = "/js/sites/ifnowcode.github.io";
 const tracedebug = false;
 const tracewarn = true;
 const traceerror = true;
+
 window.addEventListener("load", () => {
   const loadTime = performance.now() - startTime;
   if (loadTime < 1000) {
@@ -388,6 +388,8 @@ class Element {
     for (const elem of flat) {
       this.children.push(elem);
     }
+    
+    return flat[0];
   }
 
   removeChild(elem) {

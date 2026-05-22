@@ -15,9 +15,9 @@ class RepoCard extends Element {
         padding: "1rem",
         margin: "1rem 0",
         borderRadius: "8px",
-        background: "#111",
+        backgroundColor: "rgba(17, 17, 17, 0.9)", //#111
         border: "3px solid #333",
-        color: "#eee"
+        color: "#eee",
       }
     });
 
@@ -162,8 +162,17 @@ class RepoPage extends Element {
     });
     
     this.header = new Element("header", {
-      css: { marginBottom: "2rem", textAlign: "center" }
+      css: { marginBottom: "2rem", textAlign: "center", background: "#111" }
     });
+    
+    /*
+    this.header.addChild(
+      new Element("h1", {
+        props: { textContent: `${titleName}` },
+        css: { fontSize: "2.5rem", marginBottom: ".5rem" }
+      })
+    );
+    */
 
     this.header.addChild(
       new Element("h1", {
@@ -193,5 +202,45 @@ class RepoPage extends Element {
       const card = new RepoCard(repo);
       this.repoList.addChild(card);
     });
+  }
+}
+
+class Footer extends Box {
+  constructor(metadata = {}) {
+    super({
+      css: {
+        width: "100%",
+        padding: "20px 0",
+        marginTop: "40px",
+        //borderTop: "1px solid #ddd",
+        textAlign: "center",
+        fontSize: "14px",
+        color: "#666",
+        //background: '#090909',
+        ...(metadata.css || {})
+      },
+      props: {
+        ...(metadata.props || {className: `footer-bar`})
+      }
+    });
+    let companyname = 'LegacyTech';
+    this.addChild(
+      new Element('button', {
+        css: { background: '#111', color: 'lavender' },
+        props: { textContent: "Scroll to Top", onclick: () => {
+            console.log("Scroll to top");
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+          }
+        }
+      })
+    );
+    this.addChild(new Element('br'));
+    this.addChild(new Element('br'));
+    this.addChild(
+      new Element("div", {
+        props: { innerHTML: `© ${new Date().getFullYear()} Peter Anderson. All rights reserved.<br>[Powered by Domicile]`}
+      })
+    );
   }
 }
