@@ -58,9 +58,9 @@ async function BuildHomePage() {
 
 async function BuildHomePage2() {
   let titleName = "IfNowCode";
-  let username = "ifnowcode";
+  let username = titleName.toLowerCase();
   
-  const repos = await GitHubService.getRepos("ifnowcode");
+  const repos = await GitHubService.getRepos(username);
   repos.sort((a, b) => b.stargazers_count - a.stargazers_count);
     
   let page = new Element("div", {
@@ -78,17 +78,54 @@ async function BuildHomePage2() {
     })
   );
   
+  /*
   header.addChild(new Element("h1", {
+      props: { className: "neon", textContent: `${titleName}` },
+      css: {
+        //fontSize: "2.5rem",
+        margin: "0",
+        textAlign: "center"
+      }
+    })
+  );
+  */
+  
+  /*
+  header.addChild(
+    new NeonTitle3({
+      text: titleName,
+      color: "#ff0000",
+      glow: "#ff00ff",
+      intensity: 1.4,
+      pulse: true,
+      flicker: true,
+      size: "3.2rem"
+    }, { css: { marginTop: "0.25em"}})
+  );
+  */
+
+  header.addChild(
+    new NeonTubeSign({
+      text: titleName,
+      color: "#ee0000",
+      glow: "#ff00ff",
+      size: 72,
+      pulse: true,
+      flicker: true
+    })
+  );
+
+  header.addChild(new Element("h2", {
         props: {
           innerHTML: `
-            <span class="neon">${titleName}</span><br>
             <a href="https://github.com/${username}" target="_blank">GitHub</a>
             <span> </span>
             <a href="https://github.com/${username}?tab=repositories" target="_blank">Repositories</a>
           `
         },
         css: {
-          fontSize: "2.5rem",
+          fontSize: "2rem",
+          marginTop: "0",
           marginBottom: ".5rem",
           textAlign: "center"
         }
