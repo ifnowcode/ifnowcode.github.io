@@ -109,7 +109,7 @@ async function BuildHomePage2() {
       text: titleName,
       color: "#ee0000",
       glow: "#ff00ff",
-      size: 72,
+      size: 62,
       pulse: true,
       flicker: true
     })
