@@ -136,8 +136,10 @@ async function BuildHomePage2() {
 
   // Build cards synchronously
   repos.forEach(repo => {
-    const card = new RepoCard(repo);
-    repoList.addChild(card);
+    if (repo.topics.includes("gitweb")) {
+      const card = new RepoCard(repo);
+      repoList.addChild(card);
+    }
   });
   
   page.addChild(repoList);
