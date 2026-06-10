@@ -1,3 +1,7 @@
+function capitalizeFirstLetter(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+}
+
 class Component extends Element {
   constructor(tag, internal = {}, metadata = {}) {
     // Merge props
@@ -58,7 +62,7 @@ class RepoCard extends Element {
           fontWeight: "bold"
         }
       }, new Element("h2", {
-        props: { textContent: repo.name },
+        props: { textContent: capitalizeFirstLetter(repo.name) },
         css: { margin: "0 0 .5rem 0", fontSize: "1.4rem" }
       }))
     );
