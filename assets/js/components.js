@@ -28,6 +28,7 @@ class Component extends Element {
   }
 }
 
+/*
 class GitHubService {
   static async getRepos(username) {
     const res = await fetch(`https://api.github.com/users/${username}/repos`);
@@ -35,6 +36,32 @@ class GitHubService {
     return await res.json();
   }
 }
+*/
+
+class GitHubService {
+  static async getRepos(username) {
+    let page = 1;
+    const all = [];
+
+    while (true) {
+      const res = await fetch(
+        `https://api.github.com/users/${username}/repos?per_page=100&page=${page}`
+      );
+
+      if (!res.ok) break;
+
+      const repos = await res.json();
+
+      if (repos.length === 0) break; // no more pages
+
+      all.push(...repos);
+      page++;
+    }
+
+    return all;
+  }
+}
+
 
 class RepoCard extends Element {
   constructor(repo) {
