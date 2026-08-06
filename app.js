@@ -1,4 +1,4 @@
-const base = "/js/sites/ifnowcode.github.io";
+const base = "";
 
 async function HomePage() {
   const repos = await GitHubService.getRepos("ifnowcode");
@@ -145,19 +145,34 @@ async function BuildHomePage2() {
   
   page.addChild(repoList);
   
-  return [page, new Footer];
+  return [page];
+}
+
+function AboutPage() {
+  console.log("About Page");
+  return [new Element("h1", {props: {textContent: "About"}})];
+}
+
+function Error404Page() {
+  console.log("404 Page");
+  return [new Element("h1", {props: {textContent: "404"}})];
 }
   
 function PageTemplate(contents = []) {
   // TODO: add navbar and footer
-  return contents;
+  return [...contents, new Footer];
 }
+
+console.log("URL", window.location.href);
 
 router = new RouterAsync({
   base: base,
   template: PageTemplate,
+  //page404: Error404Page,
+  //template404: PageTemplate,
   routes: {
     "/":        { contents: BuildHomePage2 },
+    //"/about":   { contents: AboutPage },
   },
   runAsync: true,
 });
